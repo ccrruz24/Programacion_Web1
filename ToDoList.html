@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoList</title>
+    <link rel="stylesheet" type="text/css" href="../Programacion_Web-main/public/css/style2.css">
+</head>
+<body>
+    <div class="tarjeta-principal">
+    <div class="grupo-entrada">
+      <input type="text" id="inputTarea" placeholder="Agregar tareas">
+      <button id="botonAgregar">Agregar</button>
+    </div>
+
+    <p class="contador">Tienes <span id="contadorTareas">0</span> tareas por completar</p>
+
+    <ul id="listaTareas">
+      
+    </ul>
+  </div>
+
+  <script>
+
+    const inputTarea = document.getElementById('inputTarea');
+    const botonAgregar = document.getElementById('botonAgregar');
+    const listaTareas = document.getElementById('listaTareas');
+    const contadorTareas = document.getElementById('contadorTareas');
+
+    // cargar tareas guardadas
+    let tareas = JSON.parse(localStorage.getItem('misTareas')) || [];
+
+    renderizarTareas();
+
+    // agregar nueva tarea
+    botonAgregar.addEventListener('click', agregarTarea);
+    inputTarea.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') agregarTarea();
+    });
+
+    function agregarTarea() {
+    const texto = inputTarea.value.trim();
+    if (!texto) return;
+
+    tareas.push({ texto: texto, completada: false });
+    inputTarea.value = '';
+    guardarYRenderizar();
+    }
+
+    function renderizarTareas() {
+    listaTareas.innerHTML = '';
+    let tareasPendientes = 0;
+
+    tareas.forEach((tarea, indice) => {
+        if (!tarea.completada) tareasPendientes++;
+
+        const li = document.createElement('li');
+        li.className = `item-tarea ${tarea.completada ? 'completada' : ''}`;
+        
+        li.innerHTML = `
+        <input type="checkbox" ${tarea.completada ? 'checked' : ''} onclick="alternarTarea(${indice})">
+        <span class="texto-tarea">${tarea.texto}</span>
+        <div class="acciones">
+            <button class="btn-accion btn-editar" onclick="editarTarea(${indice})"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="btn-accion btn-eliminar" onclick="eliminarTarea(${indice})"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        `;
+
+        listaTareas.appendChild(li);
+    });
+
+    contadorTareas.textContent = tareasPendientes;
+    }
+
+    function alternarTarea(indice) {
+    tareas[indice].completada = !tareas[indice].completada;
+    guardarYRenderizar();
+    }
+
+    function eliminarTarea(indice) {
+    tareas.splice(indice, 1);
+    guardarYRenderizar();
+    }
+
+    function editarTarea(indice) {
+    const nuevoTexto = prompt('Editar tarea:', tareas[indice].texto);
+    if (nuevoTexto !== null && nuevoTexto.trim() !== '') {
+        tareas[indice].texto = nuevoTexto.trim();
+        guardarYRenderizar();
+    }
+    }
+
+    function guardarYRenderizar() {
+    localStorage.setItem('misTareas', JSON.stringify(tareas));
+    renderizarTareas();
+    }
+</script>
+</body>
+</html>
+

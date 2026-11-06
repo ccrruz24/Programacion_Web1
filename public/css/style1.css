@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background-color: #e3c19e; /* Color de fondo beige/marrón claro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Contenedor principal de la calculadora */
+.calculator {
+  background-color: #232323; /* Fondo oscuro del cuerpo */
+  width: 320px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Pantalla / Display */
+.display {
+  background-color: #f4f4f4;
+  color: #111;
+  font-family: 'Times New Roman', serif; /* Estilo de fuente como en la imagen */
+  font-size: 1.8rem;
+  text-align: right;
+  padding: 15px 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Grilla para ordenar los botones */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* Estilos base de los botones */
+.btn {
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  padding: 18px 0;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* Botones grises (números) */
+.btn-gray {
+  background-color: #555555;
+}
+
+.btn-gray:hover {
+  background-color: #666666;
+}
+
+/* Botones rojos (C, CE) */
+.btn-red {
+  background-color: #ff0000;
+}
+
+.btn-red:hover {
+  background-color: #e60000;
+}
+
+/* Botones naranjas (operadores) */
+.btn-orange {
+  background-color: #ff8c00;
+}
+
+.btn-orange:hover {
+  background-color: #e07b00;
+}
+
+/* Botón 0 ocupa 2 columnas */
+.btn-zero {
+  grid-column: span 2;
+}
+
+/* Botón = ocupa 2 filas de alto */
+.btn-equal {
+  grid-row: span 2;
+  height: 100%;
+}

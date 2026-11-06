@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Sencilla</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #e3c19e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Contenedor de la calculadora */
+    .calculator {
+      background-color: #232323;
+      width: 320px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Pantalla */
+    .display {
+      background-color: #f4f4f4;
+      color: #111;
+      font-family: 'Times New Roman', serif;
+      font-size: 1.8rem;
+      text-align: right;
+      padding: 15px 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    /* Distribución en Grid */
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    /* Botones */
+    .btn {
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ffffff;
+      padding: 18px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn-gray { background-color: #555555; }
+    .btn-gray:hover { background-color: #666666; }
+
+    .btn-red { background-color: #ff0000; }
+    .btn-red:hover { background-color: #e60000; }
+
+    .btn-orange { background-color: #ff8c00; }
+    .btn-orange:hover { background-color: #e07b00; }
+
+    .btn-zero { grid-column: span 2; }
+    .btn-equal { grid-row: span 2; height: 100%; }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <!-- Pantalla -->
+    <div id="pantalla" class="display">0</div>
+
+    <!-- Botones -->
+    <div class="buttons">
+      <!-- Fila 1 -->
+      <button class="btn btn-red" onclick="limpiarC()">C</button>
+      <button class="btn btn-red" onclick="limpiarCE()">CE</button>
+      <button class="btn btn-orange" onclick="operar('/')">/</button>
+      <button class="btn btn-orange" onclick="operar('x')">x</button>
+
+      <!-- Fila 2 -->
+      <button class="btn btn-gray" onclick="pressNumero('7')">7</button>
+      <button class="btn btn-gray" onclick="pressNumero('8')">8</button>
+      <button class="btn btn-gray" onclick="pressNumero('9')">9</button>
+      <button class="btn btn-orange" onclick="operar('-')">-</button>
+
+      <!-- Fila 3 -->
+      <button class="btn btn-gray" onclick="pressNumero('4')">4</button>
+      <button class="btn btn-gray" onclick="pressNumero('5')">5</button>
+      <button class="btn btn-gray" onclick="pressNumero('6')">6</button>
+      <button class="btn btn-orange" onclick="operar('+')">+</button>
+
+      <!-- Fila 4 -->
+      <button class="btn btn-gray" onclick="pressNumero('1')">1</button>
+      <button class="btn btn-gray" onclick="pressNumero('2')">2</button>
+      <button class="btn btn-gray" onclick="pressNumero('3')">3</button>
+      <button class="btn btn-orange btn-equal" onclick="calcular()">=</button>
+
+      <!-- Fila 5 -->
+      <button class="btn btn-gray btn-zero" onclick="pressNumero('0')">0</button>
+      <button class="btn btn-gray" onclick="pressNumero('.')">.</button>
+    </div>
+  </div>
+
+  <script>
+    
+    
+    let num1 = '';
+    let num2 = '';
+    var ope = '';
+
+    let pantalla = document.getElementById('pantalla');
+
+    
+    function pressNumero(n) {
+      if (ope === '') {
+        num1 += n;
+        pantalla.innerText = num1;
+      } else {
+        num2 += n;
+        pantalla.innerText = num1 + ope + num2;
+      }
+    }
+
+    
+    function operar(o) {
+      if (num1 !== '') {
+        ope = o;
+        pantalla.innerText = num1 + ope;
+      }
+    }
+
+    
+    function calcular() {
+      if (num1 !== '' && num2 !== '' && ope !== '') {
+        
+        let expresion = num1 + ope + num2;
+
+        expresion = expresion.replace('x', '*');
+
+        let resultado = eval(expresion);
+
+        pantalla.innerText = resultado;
+
+        num1 = resultado.toString();
+        num2 = '';
+        ope = '';
+      }
+    }
+
+    
+    function limpiarC() {
+      num1 = '';
+      num2 = '';
+      ope = '';
+      pantalla.innerText = '0';
+    }
+
+    
+    function limpiarCE() {
+      if (num2 !== '') {
+        num2 = '';
+        pantalla.innerText = num1 + ope;
+      } else if (ope !== '') {
+        ope = '';
+        pantalla.innerText = num1;
+      } else {
+        num1 = '';
+        pantalla.innerText = '0';
+      }
+    }
+  </script>
+
+</body>
+</html>

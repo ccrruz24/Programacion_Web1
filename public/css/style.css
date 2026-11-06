@@ -1,0 +1,108 @@
+@font-face {
+    font-family: "myStyle";
+    src: url("../fonts/Hey\ Comic.ttf");
+}
+
+.my_p_w_shadow{
+    text-shadow: green 1px 1px 0px;
+    font-family: "myStyle";
+}
+
+p{
+    text-align: justify;
+}
+
+
+h1,h2{
+    font-family:"myStyle";
+}
+
+.p1{
+    text-align: justify;
+    text-decoration: greenyellow wavy underline;
+}
+
+.my_parag:hover{
+    background-color: red;
+    
+}
+
+.enlaces:hover{
+    background-color: blueviolet;
+}
+
+ul li:hover{
+    background-color: brown;
+    color: white;
+}
+
+ul li:first-child{
+    background-color: aquamarine;
+}
+
+ul li:last-child{
+    background-color: powderblue;
+}
+
+.prueba{
+    background-color: greenyellow;
+    border: 5px outset green;
+    border-radius: 10px;
+    padding: 8px;
+}
+
+.prueba1{
+    background-color: rgb(85, 105, 221);
+    border: 5px solid rgb(68, 80, 131);
+    border-radius: 10px;
+    padding: 3px;
+}
+
+.prueba0{
+    position: sticky;
+    top: 15px;
+    background-color: rgb(105, 221, 151);
+    border: 5px solid rgb(5, 63, 17);
+    border-radius: 10px;
+    padding: 3px;
+}
+
+h2,h3{
+    margin: 10px;
+}
+
+
+.bi{
+    text-align: center;
+    background-image: url("../../image/imagen.jpg");
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
+
+.container > div {
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgb(207 232 220);
+  border: 2px solid rgb(79 185 227);
+}
+
+.one{
+
+	grid-column: 1 / 4;
+	grid-row: 1;
+}
+
+.container{
+
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);;
+	/*grid-template-rows: 100px;*/
+	grid-auto-rows: minmax(75px, auto);
+	gap: 10px;
+
+}
+
+
+
